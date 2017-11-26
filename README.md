@@ -24,9 +24,8 @@ var myParsedNumber = parseFloat(myString);  //samma
 var myParsedNumber = +parseFloat(myString); //samma
 ```
 
-## Object
+## Array av Objekt
 ```
-//Array of objects
 [{...}, {...}]
 ```
 
