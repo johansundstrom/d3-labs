@@ -47,7 +47,7 @@ arr.forEach(function(d) {
 
 ## D3 parse från fil
 
-d3 är object och csv är en funktion
+d3 är object och csv är funktion
 ```
 d3.csv("data.csv", function(data) {
   console.log(data[1]);
@@ -92,4 +92,40 @@ var scale = d3.scaleLinear()
   .range([0, 100]); //pixel space
 
   console.log(scale(0.5)); //returnerar pixelspace
+```
+
+
+```
+var scale = d3.scaleLinear()
+    .domain([1, 5]) //data space
+    .range([0, 200]); //pixel space
+
+//Skapa SVG canvas
+var svg = d3.select("body").append("svg")
+    .attr("width", 250)
+    .attr("height", 250);
+
+function render(data, color) {
+    //bind data
+    var rects = svg.selectAll("rect").data(data);
+
+    //enter
+    rects.enter().append("rect")
+        .attr("y", 50) //värden som inte kommer att uppdateras
+        .attr("width", 20)
+        .attr("height", 20);
+
+    //update
+    rects
+        .attr("x", scale) //returnerar pixelspace
+        .attr("fill", color); //värden som uppdateras
+
+    //exit
+    rects.exit().remove();
+}
+
+render([1, 2, 3, 4, 5], "cyan");
+render([1, 2, 3, 4], "yellow");
+render([1, 2, 3, 4, 5], "green");
+render([1, 2], "blue");
 ```
