@@ -13,7 +13,7 @@ Lär mig d3
     <polygon points="200, 10 250, 190 160, 210"></polygon>
     <polyline points="20,20 40,25 60,40 80,120 120,140 200,180"></polyline>
     <path d="M0 200 L50 50 L100 150 L150 100 L200 150" fill="none" stroke="black" stroke-width="10" stroke-dasharray="20,10,5,5,5,10"></path>
-    <text x="250" y="200" fill="red">Min text</text>
+    <text x="250" y="200" fill="red" transform="rotate(30 20,40)">Min text</text>
   </g>
 </svg>
 ```
