@@ -1,7 +1,7 @@
 # d3-labs
 Lär mig d3
 
-Principer för SVG
+## Principer för SVG
 ```
 <svg>
   <g transform="translate(50, 0)">
@@ -13,19 +13,19 @@ Principer för SVG
 </svg>
 ```
 
-Används ofta
+## Används ofta
 ```
 var myParsedNumber = parseFloat(myString);  //samma
 var myParsedNumber = +parseFloat(myString); //samma
 ```
 
-Object
+## Object
 ```
 //Array of objects
 [{...}, {...}]
 ```
 
-Läs ut objekt
+## Läs ut objekt
 ```
 var arr = [
   {x: 100, y: 100},
@@ -40,12 +40,12 @@ arr.forEach(function(d) {
 });
 ```
 
-CDN
+## CDN
 ```
 <script src="https://d3js.org/d3.v4.min.js"></script>
 ```
 
-D3 parse från fil
+## D3 parse från fil
 
 d3 är object och csv är en funktion
 ```
@@ -69,7 +69,7 @@ d3.csv("data.csv", function(data) {
 });
 ```
 
-parse from file and parseFloat
+## Parse from file and parseFloat
 ```
 d3.csv("data.csv", type, function(data) {
   data.forEach(function(d) {
@@ -84,7 +84,7 @@ function type(d) {
 };
 ```
 
-Skala om data till pixel
+## Skala om data till pixel
 
 ```
 var scale = d3.scaleLinear()
