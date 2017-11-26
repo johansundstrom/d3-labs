@@ -87,7 +87,7 @@ function type(d) {
 ## Skala om data till pixel
 
 ```
-var scale = d3.scaleLinear()
+var scale = d3.scaleLinear()		//version 4-tjafs? funktionen scale.linear är uppdaterad?
   .domain([0, 1]) //data space
   .range([0, 100]); //pixel space
 
