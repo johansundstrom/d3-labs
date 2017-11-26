@@ -3,11 +3,16 @@ Lär mig d3
 
 ## Principer för SVG
 ```
-<svg>
+<svg width="400" height="400">
   <g transform="translate(50, 0)">
     <rect x="0" y="0" width="50" height="50" fill="orange"></rect>
-    <path d="M0 200 L50 50 L100 150 L150 100 L200 150" fill="none" stroke="black" stroke-width="10"></path>
+    <rect x="50" y="20" rx="20" ry="20" width="150" height="150"> <!-- rx=x-radie -->
     <circle cx="100" cy="100" r="10" fill="red"></circle>
+    <ellipse cx="200" cy="80" rx="100" ry="50"></ellipse>
+    <line x1="0" y1="0" x2="200" y2="200"></line>
+    <polygon points="200, 10 250, 190 160, 210"></polygon>
+    <polyline points="20,20 40,25 60,40 80,120 120,140 200,180"></polyline>
+    <path d="M0 200 L50 50 L100 150 L150 100 L200 150" fill="none" stroke="black" stroke-width="10" stroke-dasharray="20,10,5,5,5,10"></path>
     <text x="250" y="200" fill="red">Min text</text>
   </g>
 </svg>
