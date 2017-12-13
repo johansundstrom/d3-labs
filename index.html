@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+    <script>
+        var scale = d3.scaleLinear()		//version 4-tjafs? funktionen scale.linear är uppdaterad?
+            .domain([0, 1]) //data space
+            .range([0, 100]); //pixel space
+
+        console.log(scale(0.5)); //returnerar pixelspace
+        var scale = d3.scaleLinear()
+            .domain([1, 5]) 			//data space eller dataområdet
+            .range([0, 200]); 			//pixel space eller pixelområde
+
+        //Skapa SVG canvas
+        var svg = d3.select("body").append("svg")		//Detta är en snygg lösning
+            .attr("width", 250)
+            .attr("height", 250);
+
+        function render(data, color) {
+            //bind data
+            var rects = svg.selectAll("rect").data(data);
+
+            //enter
+            rects.enter().append("rect")
+                .attr("y", 50) //värden som inte kommer att uppdateras
+                .attr("width", 20)
+                .attr("height", 20);
+
+            //update
+            rects
+                .attr("x", scale) //returnerar pixelspace
+                .attr("fill", color); //värden som uppdateras
+
+            //exit
+            rects.exit().remove();
+        }
+
+        //render([1, 2, 3, 4, 5], "cyan");
+        render([1, 2, 3, 4], "yellow");
+        //render([1, 2, 3, 4, 5], "green");
+        //render([1, 2], "blue");
+    
+    </script>
+</body>
+</html>
