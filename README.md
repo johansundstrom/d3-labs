@@ -101,11 +101,11 @@ var scale = d3.scaleLinear()		//version 4-tjafs? funktionen scale.linear är upp
 
 ```
 var scale = d3.scaleLinear()
-    .domain([1, 5]) //data space
-    .range([0, 200]); //pixel space
+    .domain([1, 5]) 			//data space eller dataområdet
+    .range([0, 200]); 			//pixel space eller pixelområde
 
 //Skapa SVG canvas
-var svg = d3.select("body").append("svg")
+var svg = d3.select("body").append("svg")		//Detta är en snygg lösning
     .attr("width", 250)
     .attr("height", 250);
 
