@@ -1,52 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <title></title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+        circle {opacity: 0.5;}
+    </style>
 </head>
+
 <body>
     <script>
-        var scale = d3.scaleLinear()		//version 4-tjafs? funktionen scale.linear är uppdaterad?
-            .domain([0, 1]) //data space
-            .range([0, 100]); //pixel space
+        var width = 300;
+        var height = 300;
 
-        console.log(scale(0.5)); //returnerar pixelspace
-        var scale = d3.scaleLinear()
-            .domain([1, 5]) 			//data space eller dataområdet
-            .range([0, 200]); 			//pixel space eller pixelområde
+        var scale = d3.scaleLinear()    //scale justerar data till pixel
+            .domain([1, 5]) //data space
+            .range([10, width]); //pixel space
 
-        //Skapa SVG canvas
-        var svg = d3.select("body").append("svg")		//Detta är en snygg lösning
-            .attr("width", 250)
-            .attr("height", 250);
+
+        //Skapa SVG canvas 
+        var canvas = d3.select("body").append("svg") //Select DOM-body, append svg
+            .attr("width", width + 20)
+            .attr("height", height);
+
 
         function render(data, color) {
-            //bind data
-            var rects = svg.selectAll("rect").data(data);
+            //bind data - koppla dataset med element selection
+            // var circles =  d3.select("svg").selectAll("circle").data(data)  // första förekomsten av "circle" binds till "1"
+            var circles = canvas.selectAll("circle").data(data)    // .data() binder till alla data
+            console.log(circles);
+
+
 
             //enter
-            rects.enter().append("rect")
-                .attr("y", 50) //värden som inte kommer att uppdateras
-                .attr("width", 20)
-                .attr("height", 20);
+            circles.enter().append("circle")        //skapar ett element för varje data, även om render körs flera ggr
+                .attr("cx", scale)                  //returnerar pixelspace
+                .attr("cy", 50)                     //värden som uppdateras
+                .attr("r", 10)                      //värden som uppdateras
+                .attr("stroke-width", 1)            //värden som inte kommer att uppdateras
+                .attr("stroke", "#888")             //värden som inte kommer att uppdateras
+                .attr("fill", color);               //värden som inte kommer att uppdateras
+
 
             //update
-            rects
-                .attr("x", scale) //returnerar pixelspace
-                .attr("fill", color); //värden som uppdateras
+            circles
+                .attr("cx", scale)                  //returnerar pixelspace
+                .attr("cy", 50)                     //värden som inte kommer att uppdateras
+                .attr("fill", color);               //värden som uppdateras
+
 
             //exit
-            rects.exit().remove();
+            circles.exit().remove();
         }
 
-        //render([1, 2, 3, 4, 5], "cyan");
-        render([1, 2, 3, 4], "yellow");
-        //render([1, 2, 3, 4, 5], "green");
-        //render([1, 2], "blue");
-    
+        render([1, 2], "#5545a1");                  //två _enter skapas
+        render([1, 2, 3, 4, 5], "cyan");            //tre _enter läggs till de tidigare
+        render([1, 2, 3, 4], "blue");               //
+        //setTimeout(function() { render([1, 2, 3, 4, 5], "cyan"); }, 1000);
+        //setTimeout(function() { render([1, 2, 3, 4], "yellow");}, 2000);
+        //setTimeout(function() { render([1, 2, 3, 4, 5], "green");}, 3000);
+        //setTimeout(function() { render([1, 2], "blue"); }, 4000);
     </script>
+
+
 </body>
+
 </html>
