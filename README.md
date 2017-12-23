@@ -192,7 +192,7 @@ function render(data, color) {
         .attr("fill", color);               //värden som uppdateras
 
     //exit
-    circles.exit().remove();
+    circles.exit().remove();		    // tabort DOM-element som inte har data
 }
 
 render([1, 2, 3, 4, 5], "cyan");
