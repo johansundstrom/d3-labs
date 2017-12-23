@@ -126,33 +126,73 @@ var even = d3.selectAll("tr").filter(":nth-child(even)");
 even.style("background-color", "#eee");
 ```
 
-```
-var scale = d3.scaleLinear()
-    .domain([1, 5]) 			//data space eller dataområdet
-    .range([0, 200]); 			//pixel space eller pixelområde
 
-//Skapa SVG canvas
-var svg = d3.select("body").append("svg")		//Detta är en snygg lösning
-    .attr("width", 250)
-    .attr("height", 250);
+
+## Databinding
+* Funktionen data() ger datakoppling mellan data och DOM-element
+```
+var dataset = [12, 32, 53, 21];
+
+var circles = d3.select("svg").selectAll("circle");
+circles.data(dataset);
+```
+
+... eller (method chaining)
+```
+var circles = d3.select("svg").selectAll("circle")	//inte radslut
+    .data(dataset);
+```
+
+```
+d3.select("svg").selectAll("rect").data(dataset)
+  .style("height", function(d){ 
+    return d + "px"; 
+  });
+```
+
+## Ett exempel
+
+```
+var width = 300;
+var height = 300;
+    
+var scale = d3.scaleLinear()	//scale justerar data till pixel
+    .domain([1, 5]) 		//data space
+    .range([0, width]);		//pixel space
+
+//Skapa SVG canvas, detta är en snygg lösning
+var canvas = d3.select("body").append("svg")	//Select DOM-objektet body, append svg
+    .attr("width", width + 20)
+    .attr("height", height);
 
 function render(data, color) {
-    //bind data
-    var rects = svg.selectAll("rect").data(data);
+    // Koppla ihop dataset med element selection
+    // var circles =  d3.select("svg").selectAll("circle").data(data)  // första förekomsten av "circle" binds till "1"
+    // bind data
+    var circles = canvas.selectAll("circle").data(data);	// .data() binder till alla data
+
+    // Array _enter skapades med data-antal
+    // Andra ggn render() körs läggs antingen till eller tas bort data från _enter
+    // enter() kan nås med console.log
+    // enter() skapar nya DOM-element för nya data
 
     //enter
-    rects.enter().append("rect")
-        .attr("y", 50) //värden som inte kommer att uppdateras
-        .attr("width", 20)
-        .attr("height", 20);
+    circles.enter().append("circle")        //skapar ett element för varje data, även om render körs flera ggr
+	.attr("cx", scale)                  //returnerar pixelspace
+        .attr("cy", 50)                     //värden som uppdateras
+        .attr("r", 10)                      //värden som uppdateras
+        .attr("stroke-width", 1)            //värden som inte kommer att uppdateras
+        .attr("stroke", "#888")             //värden som inte kommer att uppdateras
+        .attr("fill", color);               //värden som inte kommer att uppdateras
 
     //update
-    rects
-        .attr("x", scale) //returnerar pixelspace
-        .attr("fill", color); //värden som uppdateras
+    circles
+	.attr("cx", scale)                  //returnerar pixelspace
+        .attr("cy", 50)                     //värden som inte kommer att uppdateras
+        .attr("fill", color);               //värden som uppdateras
 
     //exit
-    rects.exit().remove();
+    circles.exit().remove();
 }
 
 render([1, 2, 3, 4, 5], "cyan");
