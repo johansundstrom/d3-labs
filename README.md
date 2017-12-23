@@ -18,10 +18,10 @@ Lär mig d3
 </svg>
 ```
 
-## Används ofta
+## Används ofta i D3 (en JavaScript special)
 ```
-var myParsedNumber = parseFloat(myString);  //samma
-var myParsedNumber = +parseFloat(myString); //samma
+var myParsedNumber = parseFloat(myString);  //konvertera string till float
+var myParsedNumber = +(myString); //samma som ovan
 ```
 
 ## Array av Objekt
@@ -49,7 +49,7 @@ arr.forEach(function(d) {
 <script src="https://d3js.org/d3.v4.min.js"></script>
 ```
 
-## D3 parse från fil
+## D3 parse (request) från fil
 
 d3 är object och csv är funktion
 ```
@@ -58,20 +58,26 @@ d3.csv("data.csv", function(data) {
 });
 ```
 
-
+Eller JSON-orienterad fil
 ```
 d3.json("employees.json", function(data) {
   console.log(data[0]);
 });
 ```
 
+Eller tab separated value
 ```
-d3.csv("data.csv", function(data) {
+d3.csv("data.tsv", function(data) {
   data.forEach(function(d) {
     console.log(d.x + ", " + d.y);
   });
 });
 ```
+
+Kommer också i smakerna...
+* d3.html
+* d3.xml
+* d3.text
 
 ## Parse from file and parseFloat
 ```
@@ -98,6 +104,27 @@ var scale = d3.scaleLinear()		//version 4-tjafs? funktionen scale.linear är upp
   console.log(scale(0.5)); //returnerar pixelspace
 ```
 
+## Selections
+Följande hämtar första förekomsten av ```a``` från DOM. Om saknas returneras tomt
+```
+var anchor = d3.select("#menu").select("li");
+```
+
+Följande hämtar alla förekomster av li ur #menu
+```
+var myMeny = d3.select("#menu").selectAll("li");
+```
+
+Med ovanstående...
+```
+myMeny.style("color", "red");
+```
+
+Selections med filter
+```
+var even = d3.selectAll("tr").filter(":nth-child(even)");
+even.style("background-color", "#eee");
+```
 
 ```
 var scale = d3.scaleLinear()
