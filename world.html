@@ -27,8 +27,7 @@
         var width = 900;
         var height = 600;
   
-        //var projection = d3.geo.mercator();
-        var projection = d3.geo.projectionMutator;
+        var projection = d3.geo.mercator();
         
         var svg = d3.select("body").append("svg")
             .attr("width", width)
