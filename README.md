@@ -24,14 +24,14 @@ var myParsedNumber = parseFloat(myString);  //konvertera string till float
 var myParsedNumber = +(myString); //samma som ovan
 ```
 
-## Array av Objekt
+Array av Objekt
 ```
 [{...}, {...}]
 ```
 
-## Läs ut objekt
+Läs ut objekt
 ```
-var arr = [
+var dataset = [
   {x: 100, y: 100},
   {x: 130, y: 120},
   {x: 80, y: 180},
@@ -39,8 +39,8 @@ var arr = [
   {x: 180, y: 40},
 ];
 
-arr.forEach(function(d) {
-	console.log(d.x + " " + d.y);
+dataset.forEach(function(d) {
+    console.log(d.x + " " + d.y);
 });
 ```
 
