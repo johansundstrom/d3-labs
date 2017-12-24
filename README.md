@@ -109,9 +109,9 @@ var scale = d3.scaleLinear()		//version 4-tjafs? funktionen scale.linear är upp
 ```
 
 ## Selections
-Följande hämtar första förekomsten av ```a``` från DOM. Om saknas returneras tomt
+Följande hämtar första förekomsten av ```li``` från DOM. Om saknas returneras tomt
 ```
-var anchor = d3.select("#menu").select("li");
+var listItem = d3.select("#menu").select("li");
 ```
 
 Följande hämtar alla förekomster av li ur #menu
