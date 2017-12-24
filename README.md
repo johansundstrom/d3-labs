@@ -1,6 +1,10 @@
 # d3-labs
 Lär mig d3
 
+* D3 - Data driven documents
+* Ett JS-bibliotek för manipulering av DOM
+* Sägs kombinera HTML-SVG-CSS
+
 ## Principer för SVG
 ```
 <svg width="400" height="400">
