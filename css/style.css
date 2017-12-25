@@ -1,0 +1,13 @@
+.jumbotron {
+    background-image: url(../images/pcb.jpg);
+    background-image: opacity;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    color: rgb(24, 92, 1);
+}
+
+.material-icons {
+    font-size: 38px;
+    color: rgb(211, 75, 75);
+} 
