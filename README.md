@@ -6,7 +6,7 @@ Lär mig d3
 * Sägs kombinera HTML-SVG-CSS
 
 ## Principer för SVG
-```
+```html
 <svg width="500" height="500">
  	<g transform="translate(50, 0)">
 		<rect x="0" y="0" width="50" height="50" fill="orange"></rect>
