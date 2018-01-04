@@ -26,18 +26,18 @@ Lär mig d3
 ```
 
 ## Används ofta i D3 (en JavaScript special)
-```
+```javascript
 var myParsedNumber = parseFloat(myString);  //konvertera string till float
 var myParsedNumber = +(myString); //samma som ovan
 ```
 
 Array av Objekt
-```
+```javascript
 [{...}, {...}]
 ```
 
 Läs ut objekt
-```
+```javascript
 var dataset = [
   {x: 100, y: 100},
   {x: 130, y: 120},
@@ -52,28 +52,28 @@ dataset.forEach(function(d) {
 ```
 
 ## CDN
-```
+```html
 <script src="https://d3js.org/d3.v4.min.js"></script>
 ```
 
 ## D3 parse (request) från fil
 
 d3 är object och csv är funktion
-```
+```javascript
 d3.csv("data.csv", function(data) {
   console.log(data[1]);
 });
 ```
 
 Eller JSON-orienterad fil
-```
+```javascript
 d3.json("employees.json", function(data) {
   console.log(data[0]);
 });
 ```
 
 Eller tab separated value
-```
+```javascript
 d3.csv("data.tsv", function(data) {
   data.forEach(function(d) {
     console.log(d.x + ", " + d.y);
@@ -87,7 +87,7 @@ Kommer också i smakerna...
 * d3.text
 
 ## Parse from file and parseFloat
-```
+```javascript
 d3.csv("data.csv", type, function(data) {
   data.forEach(function(d) {
     console.log(d.x + d.y);
@@ -103,7 +103,7 @@ function type(d) {
 
 ## Skala om data till pixel
 
-```
+```javascript
 var scale = d3.scaleLinear()		//version 4-tjafs? funktionen scale.linear är uppdaterad?
   .domain([0, 1]) //data space
   .range([0, 100]); //pixel space
@@ -113,22 +113,22 @@ var scale = d3.scaleLinear()		//version 4-tjafs? funktionen scale.linear är upp
 
 ## Selections
 Följande hämtar första förekomsten av ```li``` från DOM. Om saknas returneras tomt
-```
+```javascript
 var listItem = d3.select("#menu").select("li");
 ```
 
 Följande hämtar alla förekomster av li ur #menu
-```
+```javascript
 var myMeny = d3.select("#menu").selectAll("li");
 ```
 
 Med ovanstående...
-```
+```javascript
 myMeny.style("color", "red");
 ```
 
 Selections med filter
-```
+```javascript
 var even = d3.selectAll("tr").filter(":nth-child(even)");
 even.style("background-color", "#eee");
 ```
@@ -137,7 +137,7 @@ even.style("background-color", "#eee");
 
 ## Databinding
 * Funktionen data() ger datakoppling mellan data och DOM-element
-```
+```javascript
 var dataset = [12, 32, 53, 21];
 
 var circles = d3.select("svg").selectAll("circle");
@@ -145,12 +145,12 @@ circles.data(dataset);
 ```
 
 ... eller (method chaining)
-```
+```javascript
 var circles = d3.select("svg").selectAll("circle")	//inte radslut
     .data(dataset);
 ```
 
-```
+```javascript
 d3.select("svg").selectAll("rect").data(dataset)
   .style("height", function(d){ 
     return d + "px"; 
@@ -159,7 +159,7 @@ d3.select("svg").selectAll("rect").data(dataset)
 
 ## Ett exempel
 
-```
+```javascript
 var width = 300;
 var height = 300;
     
