@@ -7,18 +7,21 @@ Lär mig d3
 
 ## Principer för SVG
 ```
-<svg width="400" height="400">
-  <g transform="translate(50, 0)">
-    <rect x="0" y="0" width="50" height="50" fill="orange"></rect>
-    <rect x="50" y="20" rx="20" ry="20" width="150" height="150"> <!-- rx=x-radie -->
-    <circle cx="100" cy="100" r="10" fill="red"></circle>
-    <ellipse cx="200" cy="80" rx="100" ry="50"></ellipse>
-    <line x1="0" y1="0" x2="200" y2="200"></line>
-    <polygon points="200, 10 250, 190 160, 210"></polygon>
-    <polyline points="20,20 40,25 60,40 80,120 120,140 200,180"></polyline>
-    <path d="M0 200 L50 50 L100 150 L150 100 L200 150" fill="none" stroke="black" stroke-width="10" stroke-dasharray="20,10,5,5,5,10"></path>
-    <text x="250" y="200" fill="red" transform="rotate(30 20,40)">Min text</text>
-  </g>
+<svg width="500" height="500">
+ 	<g transform="translate(50, 0)">
+		<rect x="0" y="0" width="50" height="50" fill="orange"></rect>
+		<rect x="60" y="20" rx="10" ry="10" width="150" height="150" fill="steelblue"></rect> <!-- rundade hörn -->
+		<circle cx="50" cy="250" r="50" fill="red"></circle>
+		<ellipse cx="200" cy="80" rx="100" ry="50"></ellipse>
+		<line x1="400" y1="40" x2="100" y2="200" style="stroke:#ccc;stroke-width:2"></line>
+		<polygon points="200, 10 250, 190 160, 210" fill="green"></polygon>
+		<g transform="translate(300, 10)">
+                	<polyline points="0,40 40,40 40,80 80,80 80,120 120,120 120,160" fill="none" stroke="blue"></polyline>
+		</g>
+		<path d="M0 200 L50 50 L100 150 L150 100 L200 150 Z" fill="none" stroke="red" stroke-width="5" stroke-dasharray="20,10,5,5,5,10"></path>
+		<path d="M 50 150 q 150 -300 300 50" stroke="lightblue" stroke-width="5" fill="none"></path>
+		<text x="250" y="200" fill="red" transform="rotate(30 20,40)">Min text</text>
+	</g>
 </svg>
 ```
 
