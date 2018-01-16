@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <title>d3-labs</title>
+</head>
+<body>
+    <script>
+        height = 300;
+        width = 600;
+        barwidth = 20;
+        dataset = [6,9,3,2,3,7,9,4,7,2,0.3,1,5,2,8,5,9,2,9,8,6,9,3,2,3,];
+
+        var scale = d3.scaleLinear()
+            .domain([0, d3.max(dataset)])
+            .rangeRound([0, height]);
+    
+        var canvas = d3.select("body")
+            .append("svg")
+            .attr("height", height)
+            .attr("width", width);
+
+        // bind
+        var rects = canvas.selectAll("rect")
+            .data(dataset);
+
+        // enter
+        rects.enter().append("rect")
+            .attr("x", function(d, i){
+                return i * barwidth
+            })
+            .attr("y", function(d) {
+                return height - scale(d); 
+            })
+            .attr("width", barwidth - 1)
+            .attr("height", function(d) {
+                return scale(d); 
+            })
+    </script>
+</body>
+</html>
