@@ -14,6 +14,15 @@
         barwidth = 20;
         dataset = [6,9,3,2,3,7,9,4,7,2,0.3,1,5,2,8,5,9,2,9,8,6,9,3,2,3,];
 
+        var yscale = d3.scaleLinear()
+            .domain([d3.max(dataset), d3.min(dataset)])
+            .rangeRound([-10, 200]);
+
+        var yAxis = d3.axisRight(yscale)
+            .ticks(5);
+            //.append("g");
+            //.attr("transform", "translate(10, 250)");
+
         var scale = d3.scaleLinear()
             .domain([0, d3.max(dataset)])
             .rangeRound([0, height]);
@@ -21,7 +30,10 @@
         var canvas = d3.select("body")
             .append("svg")
             .attr("height", height)
-            .attr("width", width);
+            .attr("width", width)
+            .append("g")
+            .attr("transform", "translate(50, 50)")
+            .call(yAxis);
 
         // bind
         var rects = canvas.selectAll("rect")
