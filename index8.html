@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>D3</title>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+</head>
+<body>
+    <!--line x1="400" y1="40" x2="100" y2="200" style="stroke:#ccc;stroke-width:2"></line-->
+
+    <div id="canvas"></div>
+    <script>
+        var dataset = [6,9,3,2,3,7,9,4,7,2,0.3,1,5,2,8,5,9,2,9,8,6,9,3,2,3];
+        var height = 300;
+        var width = 500;
+
+        var canvas = d3.select("#canvas")
+            .append("svg")
+            .attr("width", width)
+            .attr("height", height);
+
+        // define the line
+        var valueline = d3.line()
+            .x(function(d) { return x(d.date); })
+            .y(function(d) { return y(d.close); });
+
+        // bind
+        var lines = canvas.selectAll("line")
+            .append("g")
+            .data(dataset);
+        
+        // enter
+        lines.enter().append("line")
+            .attr("x1", function(d, i) {
+                return d;
+            })
+            .attr("y1", 45);
+
+    </script>
+
+</body>
+</html>

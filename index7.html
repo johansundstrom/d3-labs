@@ -9,34 +9,38 @@
 </head>
 <body>
     <script>
-        height = 300;
-        width = 600;
-        barwidth = 20;
-        dataset = [6,9,3,2,3,7,9,4,7,2,0.3,1,5,2,8,5,9,2,9,8,6,9,3,2,3,];
+        var height = 200,
+            width = 600,
+            margin = {"top" : 10, "left" : 10, "bottom" : 10, "right" : 10},
+            barwidth = 5,
+            dataset = [0,6,9,3,2,3,7,9,4,7,2,0.3,1,5,2,8,5,9,2,9,8,6,9,3,2,3,];
 
-        var yscale = d3.scaleLinear()
+        var yScale = d3.scaleLinear()
             .domain([d3.max(dataset), d3.min(dataset)])
-            .rangeRound([-10, 200]);
+            .rangeRound([0, height - 20]); //-20 höjer y-axelstart 
 
-        var yAxis = d3.axisRight(yscale)
-            .ticks(5);
-            //.append("g");
-            //.attr("transform", "translate(10, 250)");
-
-        var scale = d3.scaleLinear()
+        var xScale = d3.scaleLinear()
             .domain([0, d3.max(dataset)])
             .rangeRound([0, height]);
-    
+
+        var yAxis = d3.axisRight(yScale)
+            .ticks(10);
+
+        var xAxis = d3.axisBottom(xScale)
+            .ticks(5);
+        
+        // skapa canvas
         var canvas = d3.select("body")
             .append("svg")
-            .attr("height", height)
-            .attr("width", width)
-            .append("g")
-            .attr("transform", "translate(50, 50)")
-            .call(yAxis);
+            .attr("height", height + 20)
+            .attr("width", width + 20);
+
+        // skapa stapelgrupp
+        var barGroup = canvas.append("g")
+            .attr("transform", "translate(20, -20)"); //flytta vä/up stapelgrupp
 
         // bind
-        var rects = canvas.selectAll("rect")
+        var rects = barGroup.selectAll("rect")
             .data(dataset);
 
         // enter
@@ -45,12 +49,22 @@
                 return i * barwidth
             })
             .attr("y", function(d) {
-                return height - scale(d); 
+                return (height) - xScale(d); // höjer stapelgrupp
             })
             .attr("width", barwidth - 1)
             .attr("height", function(d) {
-                return scale(d); 
+                return xScale(d); 
             })
+        
+        canvas.append("g")
+            .attr("transform", "translate(0, " + 0 + ")")
+            .call(yAxis);
+
+        canvas.append("g")
+            .attr("transform", "translate(20, " + height + ")")
+            .call(xAxis);
+
+    
     </script>
 </body>
 </html>
