@@ -55,6 +55,9 @@
             .attr("height", function(d) {
                 return xScale(d); 
             })
+            .text(function(d, i) {
+                return "data: " + d;
+            });
         
         canvas.append("g")
             .attr("transform", "translate(0, " + 0 + ")")
