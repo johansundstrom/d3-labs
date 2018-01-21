@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <title>d3</title>
+</head>
+<body>
+    <script>
+     
+        var height = 100,
+            width = 300,
+            antal = 40,
+            max = 50,
+            margin = {"top" : 20, "left" : 10, "bottom" : 10, "right" : 10},
+            dataset = [antal];
+            
+        
+        for (var i = 0; i < antal; i++) {
+            dataset.push(Math.round(Math.random() * max))
+        };
+        
+
+        // skapa canvas
+        var canvas = d3.select("body")
+            .append("svg")
+            .attr("height", height)
+            .attr("width", width);
+        
+        // bind
+        // var rects = barGroup.selectAll("rect")
+        //     .data(dataset);
+
+        polys = canvas.data().append
+    </script>
+</body>
+</html>

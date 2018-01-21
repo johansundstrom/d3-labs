@@ -9,34 +9,42 @@
 </head>
 <body>
     <!--line x1="400" y1="40" x2="100" y2="200" style="stroke:#ccc;stroke-width:2"></line-->
-
+    <!--path d="M 50 150 q 150 -300 300 50" stroke="lightblue" stroke-width="5" fill="none"></path-->
     <div id="canvas"></div>
     <script>
-        var dataset = [6,9,3,2,3,7,9,4,7,2,0.3,1,5,2,8,5,9,2,9,8,6,9,3,2,3];
+        var antal = 40, maxTal = 50;
+        var dataset = [antal];
         var height = 300;
         var width = 500;
+
+        for (var i = 0; i < antal; i++) {
+            dataset.push(Math.round(Math.random() * maxTal))
+        };
 
         var canvas = d3.select("#canvas")
             .append("svg")
             .attr("width", width)
             .attr("height", height);
+        
+        // skapa stapelgrupp
+            var barGroup = canvas.append("g")
+            .attr("transform", "translate(0, 0)"); //flytta vä/up stapelgrupp
 
-        // define the line
-        var valueline = d3.line()
-            .x(function(d) { return x(d.date); })
-            .y(function(d) { return y(d.close); });
+        var lineFunction = d3.svg.line()
+            .x(function(d, i) { return i; })
+            .y(function(d) { return d; })
+            .interpolate("linear");
+
 
         // bind
-        var lines = canvas.selectAll("line")
-            .append("g")
+        var paths = barGroup.selectAll("path")
             .data(dataset);
-        
-        // enter
-        lines.enter().append("line")
-            .attr("x1", function(d, i) {
-                return d;
-            })
-            .attr("y1", 45);
+
+        var lineGraph = svgContainer.append("path")
+            .attr("d", lineFunction(lineData))
+            .attr("stroke", "blue")
+            .attr("stroke-width", 2)
+            .attr("fill", "none");
 
     </script>
 

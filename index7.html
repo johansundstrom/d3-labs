@@ -1,44 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <title>d3-labs</title>
+    <style>
+            /* set the CSS */
+            rect {
+                fill: steelBlue;
+                /*stroke: steelblue;*/
+                /*stroke-width: 1px;*/
+            }
+        </style>
 </head>
 <body>
+    <div id="canvas"></div>
     <script>
-        var height = 200,
-            width = 600,
-            margin = {"top" : 10, "left" : 10, "bottom" : 10, "right" : 10},
-            barwidth = 5,
-            dataset = [0,6,9,3,2,3,7,9,4,7,2,0.3,1,5,2,8,5,9,2,9,8,6,9,3,2,3,];
+        var margin = { top: 20, right: 20, bottom: 20, left: 30 },
+            width = 500 - margin.left - margin.right,
+            height = 300 - margin.top - margin.bottom;
+
+        var antal = 100, max = 100;
+        var dataset = [antal];
+        var barwidth = 3;
+        //     dataset = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,0,5,0,9,3,2,3,7,9,4,7,2,0.3,1,5,2,8,5,9,2,9,8,6,9,3,2,3,];
+
+        for (var i = 0; i < antal; i++) {
+            dataset.push(Math.round(Math.random() * max));
+            dataset.sort().reverse();
+        };
+
+        var xScale = d3.scaleLinear()
+            .domain([0, d3.max(dataset)])
+            .rangeRound([0, height - margin.top]);
 
         var yScale = d3.scaleLinear()
             .domain([d3.max(dataset), d3.min(dataset)])
             .rangeRound([0, height - 20]); //-20 höjer y-axelstart 
-
-        var xScale = d3.scaleLinear()
-            .domain([0, d3.max(dataset)])
-            .rangeRound([0, height]);
-
-        var yAxis = d3.axisRight(yScale)
-            .ticks(10);
-
-        var xAxis = d3.axisBottom(xScale)
-            .ticks(5);
         
         // skapa canvas
-        var canvas = d3.select("body")
+        var canvas = d3.select("#canvas")
             .append("svg")
-            .attr("height", height + 20)
-            .attr("width", width + 20);
+            .attr("height", height + margin.top + margin.bottom)
+            .attr("width", width + margin.left + margin.right)
+            .append("g")
+            .attr("transform","translate(" + margin.left + "," + margin.top + ")");
+            //.attr("transform","translate(0, 0)");
 
         // skapa stapelgrupp
         var barGroup = canvas.append("g")
-            .attr("transform", "translate(20, -20)"); //flytta vä/up stapelgrupp
-
+            .attr("transform", "translate(" + margin.right + ", -" + margin.bottom + ")"); //flytta vä/up stapelgrupp
+            //.attr("transform","translate(20, -20)");
         // bind
         var rects = barGroup.selectAll("rect")
             .data(dataset);
@@ -49,22 +63,28 @@
                 return i * barwidth
             })
             .attr("y", function(d) {
-                return (height) - xScale(d); // höjer stapelgrupp
+                return height - xScale(d); // höjer stapelgrupp
             })
             .attr("width", barwidth - 1)
             .attr("height", function(d) {
                 return xScale(d); 
             })
-            .text(function(d, i) {
+            .text(function(d) {
                 return "data: " + d;
             });
+
+        var xAxis = d3.axisBottom(xScale)
+            .ticks(10);
+
+        var yAxis = d3.axisLeft(yScale)
+            .ticks(5);        
         
         canvas.append("g")
-            .attr("transform", "translate(0, " + 0 + ")")
+            .attr("transform", "translate(" + margin.right + ", 0)")
             .call(yAxis);
 
         canvas.append("g")
-            .attr("transform", "translate(20, " + height + ")")
+            .attr("transform", "translate(" + margin.right + ", " + (height - margin.bottom) + ")")
             .call(xAxis);
 
     
