@@ -3,7 +3,7 @@ Lär mig d3
 
 * D3 - Data driven documents
 * Ett JS-bibliotek för manipulering av DOM
-* Sägs kombinera HTML-SVG-CSS
+* Kombinerar teknikerna HTML-SVG-CSS
 
 ## Principer för SVG
 ```html
