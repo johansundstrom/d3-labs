@@ -1,12 +1,16 @@
-var dataArr = [0, 43, 31, 41, 28];
+var dataArr = [44, 43, 31, 41, 28];
+
+var height = 500;
+var width = 500;
 
 const canvas = d3.select("#canvas")
 
 canvas.append("svg")
-    .attr('height', 500)
-    .attr('width', 500);
+    .attr('height', height)
+    .attr('width', width);
 
 const svg = canvas.select('svg')
+
 
 // const circle = canvas.append('circle')
 //     .attr('cx', 100)
@@ -20,10 +24,12 @@ rect.attr('width', 24)
     .data(dataArr)
     .attr('fill', 'red')
     .attr('height', function(d, i){
-        return d * 2;
+        console.log(d, i);
+        return height - d +1  ;
     })
+    .attr('y', 499)
     .attr('x', function(d, i){
-        return i * 10;
+        return i * 25;
     })
  
 console.log(rect)
