@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <style>
+        circle {opacity: 0.5;}
+    </style>
+</head>
+
+<body>
+    <script>
+        var width = 300;
+        var height = 300;
+
+        var scale = d3.scaleLinear()    //scale justerar data till pixel
+            .domain([1, 5]) //data space
+            .range([10, width]); //pixel space
+
+
+        //Skapa SVG canvas 
+        var canvas = d3.select("body").append("svg") //Select DOM-body, append svg
+            .attr("width", width + 20)
+            .attr("height", height);
+
+
+        function render(data, color) {
+            //bind data - koppla dataset med element selection
+            // var circles =  d3.select("svg").selectAll("circle").data(data)  // första förekomsten av "circle" binds till "1"
+            var circles = canvas.selectAll("circle").data(data)    // .data() binder till alla data
+            console.log(circles);
+
+
+
+            //enter
+            circles.enter().append("circle")        //skapar ett element för varje data, även om render körs flera ggr
+                .attr("cx", scale)                  //returnerar pixelspace
+                .attr("cy", 50)                     //värden som uppdateras
+                .attr("r", 10)                      //värden som uppdateras
+                .attr("stroke-width", 1)            //värden som inte kommer att uppdateras
+                .attr("stroke", "#888")             //värden som inte kommer att uppdateras
+                .attr("fill", color);               //värden som inte kommer att uppdateras
+
+
+            //update
+            circles
+                .attr("cx", scale)                  //returnerar pixelspace
+                .attr("cy", 50)                     //värden som inte kommer att uppdateras
+                .attr("fill", color);               //värden som uppdateras
+
+
+            //exit
+            circles.exit().remove();
+        }
+
+        render([1, 2], "#5545a1");                  //två _enter skapas
+        render([1, 2, 3, 4, 5], "cyan");            //tre _enter läggs till de tidigare
+        render([1, 2, 3, 4], "blue");               //
+        //setTimeout(function() { render([1, 2, 3, 4, 5], "cyan"); }, 1000);
+        //setTimeout(function() { render([1, 2, 3, 4], "yellow");}, 2000);
+        //setTimeout(function() { render([1, 2, 3, 4, 5], "green");}, 3000);
+        //setTimeout(function() { render([1, 2], "blue"); }, 4000);
+    </script>
+
+
+</body>
+
+</html>

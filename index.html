@@ -1,71 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <title></title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>D3LABS-10</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
     <style>
-        circle {opacity: 0.5;}
+        
     </style>
 </head>
-
 <body>
-    <script>
-        var width = 300;
-        var height = 300;
+    <h1>D3</h1>
+    <p>[ <a href="index.html">start</a> | <a href="2.html">2</a> | <a href="3.html">3</a> | <a href="4.html">4</a> | <a href="5.html">5</a> ]</p>
+    <div id="canvas"></div>
 
-        var scale = d3.scaleLinear()    //scale justerar data till pixel
-            .domain([1, 5]) //data space
-            .range([10, width]); //pixel space
+    <h3>Javascript</h3>
+    <pre class="prettyprint">
+    const height = 400;                 //fönster höjd
+    const width = 400;
 
+    const dataArr = [75, 80, 85, 90, 95, 100];
+    
+    const canvas = d3.select("#canvas") //skapa objekt
+    
+    canvas.append("svg")                //addera svg till canvas
+        .attr('height', height)         //lägg till attribut
+        .attr('width', width);
 
-        //Skapa SVG canvas 
-        var canvas = d3.select("body").append("svg") //Select DOM-body, append svg
-            .attr("width", width + 20)
-            .attr("height", height);
+    const svg = canvas.select('svg');   //skapa svg objekt
+    const rect = svg.selectAll('rect'); //skapa rect genom att välja ut 
+                                        //alla rect (som ännu inte finns)
 
+    rect.data(dataArr)                  //med alla datavärden i array, välj rect
+        .enter()                        //nyckeln till välja rect 
+                                        //som ännu inte finns
+        .append("rect")
+        .attr('height', height)         
+        .attr('fill', function(){       //fyll med slumpfärger
+            let color = Math.floor(Math.random() * Math.pow(256, 3)).toString(16);
+            while(color.length < 6) {
+                color = "0" + color;
+            }
+            return "#" + color;
+        })
 
-        function render(data, color) {
-            //bind data - koppla dataset med element selection
-            // var circles =  d3.select("svg").selectAll("circle").data(data)  // första förekomsten av "circle" binds till "1"
-            var circles = canvas.selectAll("circle").data(data)    // .data() binder till alla data
-            console.log(circles);
+        .attr('width', function(d, i){  
+            return (width / dataArr.length - 1);
+        })
 
+        .attr('x', function(d, i){
+            let myWidth = i * (width / dataArr.length)
+            return myWidth;
+        })
 
+        .attr('y', function(d, i) {
+            console.log(d3.max(dataArr));
+            return height - (d*2)
+        });
+    </pre>
 
-            //enter
-            circles.enter().append("circle")        //skapar ett element för varje data, även om render körs flera ggr
-                .attr("cx", scale)                  //returnerar pixelspace
-                .attr("cy", 50)                     //värden som uppdateras
-                .attr("r", 10)                      //värden som uppdateras
-                .attr("stroke-width", 1)            //värden som inte kommer att uppdateras
-                .attr("stroke", "#888")             //värden som inte kommer att uppdateras
-                .attr("fill", color);               //värden som inte kommer att uppdateras
-
-
-            //update
-            circles
-                .attr("cx", scale)                  //returnerar pixelspace
-                .attr("cy", 50)                     //värden som inte kommer att uppdateras
-                .attr("fill", color);               //värden som uppdateras
-
-
-            //exit
-            circles.exit().remove();
-        }
-
-        render([1, 2], "#5545a1");                  //två _enter skapas
-        render([1, 2, 3, 4, 5], "cyan");            //tre _enter läggs till de tidigare
-        render([1, 2, 3, 4], "blue");               //
-        //setTimeout(function() { render([1, 2, 3, 4, 5], "cyan"); }, 1000);
-        //setTimeout(function() { render([1, 2, 3, 4], "yellow");}, 2000);
-        //setTimeout(function() { render([1, 2, 3, 4, 5], "green");}, 3000);
-        //setTimeout(function() { render([1, 2], "blue"); }, 4000);
-    </script>
-
-
+        <!--private js-->
+    <script src="js/js.js"></script>
 </body>
-
 </html>
